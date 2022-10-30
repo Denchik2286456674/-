@@ -67,6 +67,12 @@ while game:
         ball.rect.y += speed_y
         if ball.rect.y > win_height-50 or ball.rect.y < 0:
             speed_y *= -1 
+        if sprite.colidde_rect(racket_right, ball) or sprite.colidde_rect(racket_left, ball):
+            speed_x *= -1
+            speed_y *= -1
+        if ball.rect.x < 0:
+            finish = True
+            game_over = True
         ball.reset()
     display.update()
     clock.tick(FPS)
