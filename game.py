@@ -32,7 +32,7 @@ class Player(GameSprite):
     
     
 racket_right = Player("racket_r.png", 520, 200, 4, 50, 150)
-racket_left = Player("racket_r.png", 520, 200, 4, 50, 150)
+racket_left = Player("racket_l.png", 30, 200, 4, 50, 150)
 
 ball = GameSprite("ball.png", 200, 200, 4, 50, 50)
 win_width = 600  
