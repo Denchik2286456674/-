@@ -1,38 +1,75 @@
 # gra
-from pygame import*
+from pygame import *
 
+
+from pygame import *
+
+# клас-батько
 class GameSprite(sprite.Sprite):
-    def __init__(self):
-        pass
+    def __init__(self, player_image, p_x, p_y, p_speed,width,height):
+        super().__init__()
+        self.image = transform.scale(image.load(player_image),(width,height))
+        self.speed = p_speed
+        self.rect = self.image.get_rect()
+        self.rect.x = p_x
+        self.rect.y = p_y
     def reset(self):
-        pass
- class Player(GameSprite):
+        window.blit(self.image, (self.rect.x , self.rect.y))
+# клас для ракеток
+class Player(GameSprite):
     def update_right(self):
-        pass
+        keys = key.get_pressed()
+        if [K_UP] and self.rect.y > 5:
+            self.rect.y -= self.speed
+        if [K_DOWN] and self.rect.y < 420:
+            self.rect.y += self.speed
     def update_left(self):
-        pass
+        keys = key.get_pressed()
+        if [K_w] and self.rect.y > 5:
+            self.rect.y -= self.speed
+        if [K_s] and self.rect.y < 420:
+            self.rect.y += self.speed
+    
+    
+racket_right = Player("racket_r.png", 520, 200, 4, 50, 150)
+racket_left = Player("racket_r.png", 520, 200, 4, 50, 150)
 
-win_width = 600
-win_height = 500
+ball = GameSprite("ball.png", 200, 200, 4, 50, 50)
+win_width = 600  
+win_height = 500 
 
-window - display.set_mode((win_width, win_height))
-BLUE = (200, 255, 255)
-window.fill(fon)
+window = display.set_mode((win_width, win_height)) 
+fon = (200, 255, 255) 
+window.fill(fon)      
+
 
 game = True
 finish = False
 
-clock = time.Clock()
-FPS = 60
+clock = time.Clock() 
+FPS = 60 
+
+
+speed_x = 3
+speed_y = 3
+
 
 while game:
-    for e in event.get():
-        if e.type == QUIT:
-            game = False
+    for e in event.get():  
+        if e.type == QUIT: 
+            game = False   
     if finish != True:
         window.fill(fon)
-        display.update()
-        clock.tick(FPS)
+        racket_right.update_right()
+        racket_right.reset()
+        racket_left.reset()
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
+        if ball.rect.y > win_height-50 or ball.rect.y < 0:
+            speed_y *= -1 
+        ball.reset()
+    display.update()
+    clock.tick(FPS)
         
         
         
